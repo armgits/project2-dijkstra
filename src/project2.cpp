@@ -106,7 +106,7 @@ bool project2::searchDijkstra(
   open_list.addNode(start_node);
   bool goal_node_found {false};
 
-  std::cout << "Searching..." << std::endl;
+  std::cout << std::endl << "Searching..." << std::endl;
   auto t_begin {std::chrono::high_resolution_clock::now()};
 
   while (!open_list.isEmpty() && continue_search) {
@@ -183,6 +183,7 @@ void project2::backtrackPath(
 {
   position_buffer.clear();
   auto next_position {closed_list.rbegin()->getFromPosition()};
+  
   position_buffer.push_front(
     {closed_list.rbegin()->getPosition().x,
     closed_list.rbegin()->getPosition().y});
