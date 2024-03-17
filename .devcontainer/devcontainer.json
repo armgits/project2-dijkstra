@@ -1,0 +1,56 @@
+{
+	"remoteUser": "project2-dev",
+	"workspaceMount": "source=${localEnv:HOME}/project2-dijkstra,target=/home/project2-dev/project2-dijkstra,type=bind",
+	"workspaceFolder": "/home/project2-dev/project2-dijkstra",
+
+	"build": {
+    "target": "amd",  // options: "nvidia", "amd", "base" (intel/no gpu)
+    "dockerfile": "Dockerfile",
+
+    // Uncomment build args only for AMD GPU config.
+    "args": {
+			"ROCM_VERSION": "5.7",
+			"AMDGPU_VERSION": "5.7",
+			"APT_PREF": "Package: *\nPin: release o=repo.radeon.com\nPin-Priority: 600"
+		}
+	},
+
+	"runArgs": [
+		"--network=host",
+		"--cap-add=SYS_PTRACE",
+		"--security-opt=seccomp:unconfined",
+		"--security-opt=apparmor:unconfined",
+		"--volume=/tmp/.X11-unix:/tmp/.X11-unix",
+		"--volume=/run/user:/run/user",
+		"--ipc=host",
+
+    // Comment/Uncomment based on GPU  -----------------------------------------
+
+    // "--gpus=all"  // NVIDIA GPU only
+    "--device=/dev/dri",  // Intel and AMD GPUs
+		"--device=/dev/kfd",  // AMD GPU only
+		"--group-add=video"  // AMD GPU only
+	],
+
+	"containerEnv": {
+		"DISPLAY": "${localEnv:DISPLAY}",
+		"XDG_RUNTIME_DIR": "${localEnv:XDG_RUNTIME_DIR}",
+		"PULSE_SERVER": "${localEnv:PULSE_SERVER}",
+		"LIBGL_ALWAYS_SOFTWARE": "1"
+	},
+
+	// Add-on extensions inside the container
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"ms-vscode.cpptools",
+				"ms-vscode.cpptools-extension-pack",
+				"cschlosser.doxdocgen",
+				"redhat.vscode-yaml",
+				"twxs.cmake",
+				"ms-vscode.cmake-tools",
+				"yzhang.markdown-all-in-one"
+			]
+		}
+	}
+}
