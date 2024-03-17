@@ -43,6 +43,7 @@ int main()
   project2::ObstacleSpace obstacle_wall {obstacle_wall_points, 5, window_size};
 
   std::vector<project2::ObstacleSpace> obstacles_space {
+    obstacle_wall,
     obstacle_space1,
     obstacle_space2,
     obstacle_space3,
@@ -123,8 +124,6 @@ int main()
 
   glEnable(GL_PROGRAM_POINT_SIZE);
   glEnable(GL_CULL_FACE);
-  glEnable(GL_LINE_SMOOTH);
-  glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
   glCullFace(GL_BACK);
   glFrontFace(GL_CCW);
   glLineWidth(5);
@@ -156,17 +155,12 @@ int main()
     glClearColor(0.075, 0.075, 0.075, 1.0);
 
     // Update the GPU vertex buffer with explored nodes and render.
-    if (search_complete) {
+    if (search_complete)
       node_color = {0, 255, 0};
-      map_graph.setPointsColor(position_buffer, node_color, 100);
-      map_graph.bind();
-      glDrawArrays(GL_LINES, 0, map_graph.size());
-    }
-    else {
-      map_graph.setPointsColor(position_buffer, node_color, 100);
-      map_graph.bind();
-      glDrawArrays(GL_POINTS, 0, map_graph.size());
-    }
+
+    map_graph.setPointsColor(position_buffer, node_color, 100);
+    map_graph.bind();
+    glDrawArrays(GL_POINTS, 0, map_graph.size());
 
     // map_points.bind();
     // glDrawArrays(GL_POINTS, 0, map_points.size());
