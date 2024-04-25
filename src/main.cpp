@@ -29,11 +29,6 @@ int main()
   std::vector<unsigned int> obstacle4_1_points {900, 125, 900, 50, 1100, 50, 1100, 125};
   std::vector<unsigned int> obstacle4_2_points {1020, 125, 1100, 125, 1100, 375, 1020, 375};
   std::vector<unsigned int> obstacle4_3_points {1100, 375, 1100, 450, 900, 450, 900, 375};
-  std::vector<unsigned int> obstacle_wall_points {
-    0, 0,
-    window_size.x, 0,
-    window_size.x, window_size.y,
-    0, window_size.y};
 
   project2::ObstacleSpace obstacle_space1 {obstacle1_points, 5, window_size};
   project2::ObstacleSpace obstacle_space2 {obstacle2_points, 5, window_size};
@@ -41,10 +36,8 @@ int main()
   project2::ObstacleSpace obstacle_space4_1 {obstacle4_1_points, 5, window_size};
   project2::ObstacleSpace obstacle_space4_2 {obstacle4_2_points, 5, window_size};
   project2::ObstacleSpace obstacle_space4_3 {obstacle4_3_points, 5, window_size};
-  project2::ObstacleSpace obstacle_wall {obstacle_wall_points, 5, window_size};
 
   std::vector<project2::ObstacleSpace> obstacles_space {
-    obstacle_wall,
     obstacle_space1,
     obstacle_space2,
     obstacle_space3,
