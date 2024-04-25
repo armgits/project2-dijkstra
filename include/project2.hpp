@@ -50,20 +50,16 @@ struct TwoPoints {
 
 };
 
+class OpenList : public std::priority_queue<project2::Node,
                                              std::vector<project2::Node>,
                                              std::greater<project2::Node>>
 {
   public:
     OpenList();
-    void addNode(project2::Node& node);
 
-    bool isEmpty() {return empty();}
-    project2::Node getNode()
-    {
-      auto node {top()};
-      pop();
-      return node;
-    }
+    auto find(const project2::Node& node) {return std::find(c.begin(), c.end(), node);}
+    void erase(const std::vector<project2::Node>::iterator& node) {c.erase(node);}
+    auto end() {return c.end();}
 };
 
 class ObstacleSpace
