@@ -74,7 +74,7 @@ class ObstacleSpace
 
   private:
     void getCoefficients(const std::vector<unsigned int>& points);
-    std::vector<float> coeffients_;
+    std::vector<project2::TwoPoints> lines_;
     unsigned int clearance_;
     TwoDE::vec2ui view_size_;
 };
