@@ -96,8 +96,10 @@ bool inObstacleSpace(
   std::vector<ObstacleSpace>& obstacles_space);
 
 void backtrackPath(
-  const std::vector<project2::Node>& closed_list,
-  std::deque<TwoDE::vec2ui>& position_buffer);
+  const project2::Node& start_node,
+  const project2::Node& goal_node,
+  const std::unordered_map<project2::Position, project2::Node>& closed_list,
+  std::deque<TwoDE::vec2ui>& backtracked_path);
 
 unsigned int initShader();
 
