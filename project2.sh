@@ -20,9 +20,9 @@ else
   echo "Found G++"
 fi
 
-if ! dpkg -l libglfw3 &>/dev/null
+if ! dpkg -l libglfw3-dev &>/dev/null
 then
-  echo "GLFW is not installed. Install using \"sudo apt install libglfw3\" and"\
+  echo "GLFW is not installed. Install using \"sudo apt install libglfw3-dev\" and"\
         "try again."
   exit 1
 else
