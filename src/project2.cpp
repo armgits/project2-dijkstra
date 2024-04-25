@@ -130,7 +130,6 @@ bool project2::searchDijkstra(
   }
   auto t_end {std::chrono::high_resolution_clock::now()};
 
-  // Wrap-up
   std::chrono::duration<float, std::ratio<1L, 1L>> exec_time {t_end - t_begin};
 
   if (!goal_node_found)
