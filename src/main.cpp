@@ -24,7 +24,8 @@ int main()
   std::vector<unsigned int> obstacle1_points {100, 100, 175, 100, 175, 500, 100, 500};
   std::vector<unsigned int> obstacle2_points {275, 0, 350, 0, 350, 400, 275, 400};
   std::vector<unsigned int> obstacle3_points {};
-  TwoDE::generatePolygonPoints(obstacle3_points, {650, 250}, 6, 150, true);
+  TwoDE::generatePolygonPoints(obstacle3_points, {650, 250}, 6, 150, true, false);
+
   std::vector<unsigned int> obstacle4_1_points {900, 125, 900, 50, 1100, 50, 1100, 125};
   std::vector<unsigned int> obstacle4_2_points {1020, 125, 1100, 125, 1100, 375, 1020, 375};
   std::vector<unsigned int> obstacle4_3_points {1100, 375, 1100, 450, 900, 450, 900, 375};
