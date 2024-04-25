@@ -103,7 +103,7 @@ int main()
   // Load OpenGL
   if (!gladLoaderLoadGL())
   {
-    std::cout << "Failed to initialize GLAD" << std::endl;
+    std::cout << "Failed to initialize GLAD" << '\n';
     return -1;
   }
 
