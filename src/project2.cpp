@@ -77,12 +77,15 @@ bool project2::searchDijkstra(
   project2::OpenList open_list {};
   std::unordered_map<project2::Position, project2::Node> closed_list {};
 
-  open_list.addNode(start_node);
+  open_list.push(start_node);
   bool goal_node_found {false};
 
   std::cout << std::endl << "Searching..." << std::endl;
   auto t_begin {std::chrono::high_resolution_clock::now()};
 
+  while (!open_list.empty() && continue_search) {
+    auto current_node {open_list.top()};
+    open_list.pop();
     closed_list.insert({current_node.getPosition(), current_node});
 
     TwoDE::vec2ui current_node_pos {};
@@ -114,6 +117,18 @@ bool project2::searchDijkstra(
 
       if (closed_list.find(child_node.getPosition()) != closed_list.end())
         continue;
+
+      auto found_open_list_node {open_list.find(child_node)};
+
+      if (found_open_list_node == open_list.end()) {
+        open_list.push(child_node);
+        continue;
+      }
+
+      if (found_open_list_node != open_list.end() && child_node < *found_open_list_node) {
+        open_list.erase(found_open_list_node);
+        open_list.push(child_node);
+      }
     }
   }
   auto t_end {std::chrono::high_resolution_clock::now()};
