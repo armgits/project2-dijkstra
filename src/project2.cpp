@@ -68,7 +68,8 @@ bool project2::searchDijkstra(
   project2::Node& start_node,
   project2::Node& goal_node,
   std::vector<ObstacleSpace>& obstacles,
-  std::deque<TwoDE::vec2ui>& position_buffer,
+  std::deque<TwoDE::vec2ui>& explored_nodes,
+  std::deque<TwoDE::vec2ui>& backtracked_path,
   const bool& continue_search,
   bool& search_complete)
 {
