@@ -136,10 +136,9 @@ bool project2::searchDijkstra(
   if (!goal_node_found)
     return false;
 
-  std::cout << "-- Goal node found --" << std::endl;
-  std::cout << goal_node << std::endl << std::endl;
-  std::cout << "Execution time: " << exec_time.count() << " seconds" << std::endl;
-  backtrackPath(closed_list, position_buffer);
+  std::cout << '\n' << "-- Goal node found --" << '\n';
+  std::cout << goal_node << '\n' << '\n';
+  std::cout << "Execution time: " << exec_time.count() << " seconds" << '\n';
   search_complete = true;
 
   return true;
