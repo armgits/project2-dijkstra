@@ -21,7 +21,35 @@
 
 namespace project2 {
 
-class OpenList : private std::priority_queue<project2::Node,
+struct TwoPoints {
+
+  float x1;
+  float y1;
+  float x2;
+  float y2;
+
+  float x_diff;
+  float y_diff;
+  float distance;
+  float distance_inv;
+
+  TwoPoints()
+  : x1 {0.F}, y1 {0.F}, x2 {0.F}, y2 {0.F}, x_diff {0.F},
+    y_diff {0.F}, distance {0.F}
+  {}
+
+  TwoPoints(float x1, float y1, float x2, float y2)
+  : x1 {x1}, y1 {y1}, x2 {x2}, y2 {y2}, x_diff {x2 - x1},
+    y_diff {y2 - y1}
+  {
+    // float dir { (x1 < x2) || (y1 < y2) ? -1.F : 1.F };
+    // float dir {1.F};
+    distance = std::sqrt( std::pow(x_diff, 2) + std::pow(y_diff, 2) );
+    distance_inv = 1 / distance;
+  }
+
+};
+
                                              std::vector<project2::Node>,
                                              std::greater<project2::Node>>
 {
