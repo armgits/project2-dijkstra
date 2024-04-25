@@ -7,7 +7,7 @@ out vec4 fragment_color;
 
 void main()
 {
-  gl_PointSize = 3;
+  gl_PointSize = 2;
   fragment_color = vertex_color;
   gl_Position = vertex_position;
 };
