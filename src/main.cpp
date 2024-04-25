@@ -182,8 +182,8 @@ int main()
     map_graph.bind();
     glDrawArrays(GL_POINTS, 0, map_graph.size());
 
-    // map_points.bind();
-    // glDrawArrays(GL_POINTS, 0, map_points.size());
+    map_points.bind();
+    glDrawArrays(GL_POINTS, 0, map_points.size());
 
     obstacle1.bind();
     glDrawElements(GL_TRIANGLE_FAN, obstacle1.size(), GL_UNSIGNED_INT, nullptr);
