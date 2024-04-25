@@ -114,14 +114,22 @@ int main()
   // Initialize map draw objects
   std::vector<unsigned int> points_grid {};
   TwoDE::generatePointsGrid(points_grid, window_size, 25);
-  TwoDE::PointsStatic map_points {points_grid, window_size, {65, 65, 65}};
+  TwoDE::PointsStatic map_points {points_grid, window_size, {125, 125, 125}};
 
-  std::vector<unsigned int> new_points_grid {};
-  TwoDE::generatePointsGrid(new_points_grid, window_size, 1);
-  TwoDE::PointsDynamic map_graph {new_points_grid, window_size, {40, 40, 40}};
+  std::vector<unsigned int> map_points_grid {};
+  TwoDE::generatePointsGrid(map_points_grid, window_size, 1);
+  TwoDE::PointsDynamic map_graph {map_points_grid, window_size, {7, 30, 34}};
+
+  TwoDE::PolygonSimpleStatic obstacle1 {obstacle1_points, window_size, {103, 146, 137}};
+  TwoDE::PolygonSimpleStatic obstacle2 {obstacle2_points, window_size, {103, 146, 137}};
 
   std::vector<unsigned int> obstacle3_map_points {};
   TwoDE::generatePolygonPoints(obstacle3_map_points, {650, 250}, 6, 150, true, true);
+  TwoDE::PolygonSimpleStatic obstacle3 {obstacle3_map_points, window_size, {103, 146, 137}};
+
+  TwoDE::PolygonSimpleStatic obstacle4_1 {obstacle4_1_points, window_size, {103, 146, 137}};
+  TwoDE::PolygonSimpleStatic obstacle4_2 {obstacle4_2_points, window_size, {103, 146, 137}};
+  TwoDE::PolygonSimpleStatic obstacle4_3 {obstacle4_3_points, window_size, {103, 146, 137}};
 
   // Initialize OpenGL shader and set some parameters for rendering
   auto gl_program {project2::initShader()};
@@ -136,8 +144,7 @@ int main()
   auto start_node {project2::Node(start_node_pos)};
   auto goal_node {project2::Node(goal_node_pos)};
 
-  std::deque<TwoDE::vec2ui> position_buffer {};
-  TwoDE::color4ui node_color {0, 0, 255};
+  TwoDE::color4ui node_color {103, 146, 137, 25};
 
   // Start Dijkstra search on a dedicated thread and update the buffer with
   // explored nodes.
@@ -159,10 +166,8 @@ int main()
     glClearColor(0.075, 0.075, 0.075, 1.0);
 
     // Update the GPU vertex buffer with explored nodes and render.
-    if (search_complete)
-      node_color = {0, 255, 0};
-
-    map_graph.setPointsColor(position_buffer, node_color, 100);
+    if (search_complete) {
+      node_color = {244, 201, 93};
     map_graph.bind();
     glDrawArrays(GL_POINTS, 0, map_graph.size());
 
