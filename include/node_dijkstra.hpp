@@ -64,7 +64,7 @@ struct Position {
 
   bool operator!=(const Position& _position) const
   {
-    return (x != _position.x && y != _position.y);
+    return (x != _position.x || y != _position.y);
   }
 
   friend std::ostream& operator<<(std::ostream& os, const Position& position)
