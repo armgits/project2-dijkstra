@@ -146,6 +146,8 @@ int main()
   auto start_node {project2::Node(start_node_pos)};
   auto goal_node {project2::Node(goal_node_pos)};
 
+  std::deque<TwoDE::vec2ui> explored_nodes {};
+  std::deque<TwoDE::vec2ui> backtracked_path {};
   TwoDE::color4ui node_color {103, 146, 137, 25};
 
   // Start Dijkstra search on a dedicated thread and update the buffer with
@@ -156,7 +158,8 @@ int main()
     std::ref(start_node),
     std::ref(goal_node),
     std::ref(obstacles_space),
-    std::ref(position_buffer),
+    std::ref(explored_nodes),
+    std::ref(backtracked_path),
     std::ref(continue_search),
     std::ref(search_complete)};
 
@@ -170,6 +173,12 @@ int main()
     // Update the GPU vertex buffer with explored nodes and render.
     if (search_complete) {
       node_color = {244, 201, 93};
+      map_graph.setPointsColor(backtracked_path, node_color, backtracked_path.size() - 1);
+    }
+    else {
+      map_graph.setPointsColor(explored_nodes, node_color, explored_nodes.size() - 1);
+    }
+
     map_graph.bind();
     glDrawArrays(GL_POINTS, 0, map_graph.size());
 
