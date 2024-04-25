@@ -120,12 +120,8 @@ int main()
   TwoDE::generatePointsGrid(new_points_grid, window_size, 1);
   TwoDE::PointsDynamic map_graph {new_points_grid, window_size, {40, 40, 40}};
 
-  TwoDE::PolygonSimpleStatic obstacle1 {obstacle1_points, window_size, {100, 100, 100}};
-  TwoDE::PolygonSimpleStatic obstacle2 {obstacle2_points, window_size, {100, 100, 100}};
-  TwoDE::PolygonSimpleStatic obstacle3 {obstacle3_points, window_size, {100, 100, 100}};
-  TwoDE::PolygonSimpleStatic obstacle4_1 {obstacle4_1_points, window_size, {100, 100, 100}};
-  TwoDE::PolygonSimpleStatic obstacle4_2 {obstacle4_2_points, window_size, {100, 100, 100}};
-  TwoDE::PolygonSimpleStatic obstacle4_3 {obstacle4_3_points, window_size, {100, 100, 100}};
+  std::vector<unsigned int> obstacle3_map_points {};
+  TwoDE::generatePolygonPoints(obstacle3_map_points, {650, 250}, 6, 150, true, true);
 
   // Initialize OpenGL shader and set some parameters for rendering
   auto gl_program {project2::initShader()};
