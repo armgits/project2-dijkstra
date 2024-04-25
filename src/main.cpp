@@ -139,6 +139,8 @@ int main()
   glCullFace(GL_BACK);
   glFrontFace(GL_CCW);
   glLineWidth(5);
+  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+  glEnable(GL_BLEND);
 
   // Initial parameters for Dijkstra
   auto start_node {project2::Node(start_node_pos)};
