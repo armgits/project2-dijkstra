@@ -30,15 +30,15 @@ void TwoDE::generatePolygonPoints(
   TwoDE::vec2ui center_point,
   unsigned int sides,
   unsigned int side_length,
-  bool alt_orientation
+  bool alt_orientation,
+  bool closed_loop
 )
 {
-  double offset {0.0};
+  double offset {alt_orientation ? M_PI_2 : 0.0};
 
-  if (alt_orientation)
-    offset = M_PI_2;
+  float final_theta {closed_loop ? 2 * M_PI : 2 * M_PI - (2 * M_PI) / sides};
 
-  for (float theta {0}; theta <= 2 * M_PI; theta += (2 * M_PI) / sides) {
+  for (float theta {0}; theta <= final_theta; theta += (2 * M_PI) / sides) {
     points.push_back(int(center_point.x + side_length * cos(theta + offset)));
     points.push_back(int(center_point.y + side_length * sin(theta + offset)));
   }
