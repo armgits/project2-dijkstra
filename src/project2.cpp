@@ -164,22 +164,13 @@ void project2::backtrackPath(
   const std::unordered_map<project2::Position, project2::Node>& closed_list,
   std::deque<TwoDE::vec2ui>& backtracked_path)
 {
-  position_buffer.clear();
-  auto next_position {closed_list.rbegin()->getFromPosition()};
-  
-  position_buffer.push_front(
-    {closed_list.rbegin()->getPosition().x,
-    closed_list.rbegin()->getPosition().y});
+  backtracked_path.clear();
+  auto current_node {closed_list.find(goal_node.getPosition())->second};
 
-  for (auto i {closed_list.rbegin()}; i < closed_list.rend(); i++) {
-    if (i->getPosition() != next_position)
-      continue;
+  while (current_node != start_node) {
+    backtracked_path.push_front(TwoDE::vec2ui(current_node.getPosition().x, current_node.getPosition().y));
 
-    position_buffer.push_front(
-      {i->getPosition().x,
-      i->getPosition().y});
-
-    next_position = i->getFromPosition();
+    current_node = closed_list.find(current_node.getFromPosition())->second;
   }
 }
 
