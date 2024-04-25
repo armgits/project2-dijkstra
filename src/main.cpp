@@ -49,25 +49,39 @@ int main()
   project2::Position goal_node_pos {};
 
   // Get the user input
-  do {
-    std::cout << "-- Enter start node --" << std::endl;
-    std::cout << "x: ";
-    std::cin >> start_node_pos.x;
-    std::cout << std::endl << "y: ";
-    std::cin >> start_node_pos.y;
-  } while (!(start_node_pos.x > 0) || !(start_node_pos.x < window_size.x)
-          || !(start_node_pos.y > 0) || !(start_node_pos.y < window_size.y)
-          || project2::inObstacleSpace(start_node_pos, obstacles_space));
+  bool in_obstacle_space {true};
 
   do {
-    std::cout << "-- Enter goal node --" << std::endl;
+    std::cout << '\n' << "-- Enter start node --" << '\n';
+    std::cout << "x: ";
+    std::cin >> start_node_pos.x;
+    std::cout << "y: ";
+    std::cin >> start_node_pos.y;
+
+    in_obstacle_space = project2::inObstacleSpace(start_node_pos, obstacles_space);
+
+    if (in_obstacle_space)
+      std::cout << '\n' << "Start point is in obstacle space, try again..." << '\n';
+
+  } while (!(start_node_pos.x > 0) || !(start_node_pos.x < window_size.x)
+          || !(start_node_pos.y > 0) || !(start_node_pos.y < window_size.y)
+          || in_obstacle_space);
+
+  do {
+    std::cout << '\n' << "-- Enter goal node --" << '\n';
     std::cout << "x: ";
     std::cin >> goal_node_pos.x;
-    std::cout << std::endl << "y: ";
+    std::cout << "y: ";
     std::cin >> goal_node_pos.y;
+
+    in_obstacle_space = project2::inObstacleSpace(goal_node_pos, obstacles_space);
+
+    if (in_obstacle_space)
+      std::cout << '\n' << "Goal point is in obstacle space, try again..." << '\n';
+
   } while (!(goal_node_pos.x > 0) || !(goal_node_pos.x < window_size.x)
           || !(goal_node_pos.y > 0) || !(goal_node_pos.y < window_size.y)
-          || project2::inObstacleSpace(goal_node_pos, obstacles_space));
+          || in_obstacle_space);
 
   // Initialize GLFW window
   GLFWwindow* window;
