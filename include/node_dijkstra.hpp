@@ -144,3 +144,27 @@ class Node
     Position position_;
 };
 }
+
+namespace std {
+
+  template<>
+  struct equal_to<project2::Position>
+  {
+    bool operator()(const project2::Position& lhs, const project2::Position& rhs) const
+    {
+      return lhs == rhs;
+    }
+  };
+
+  template<>
+  struct hash<project2::Position>
+  {
+    unsigned long operator()(const project2::Position& position) const
+    {
+      unsigned long x_hash {hash<int>()(position.x)};
+      unsigned long y_hash {hash<int>()(position.y)};
+
+      return x_hash ^ y_hash;
+    }
+  };
+}
