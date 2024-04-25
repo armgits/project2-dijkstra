@@ -113,7 +113,8 @@ void generatePolygonPoints(
   vec2ui center_point,
   unsigned int sides,
   unsigned int side_length,
-  bool alt_orientation = false);
+  bool alt_orientation = false,
+  bool closed_loop = true);
 
 class PointsStatic
 {
