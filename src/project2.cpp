@@ -15,18 +15,7 @@
 #include "project2.hpp"
 
 project2::OpenList::OpenList()
-: std::priority_queue<project2::Node, std::vector<project2::Node>, std::greater<project2::Node>> {}
 {}
-
-void project2::OpenList::addNode(project2::Node& node)
-{
-  auto found_node {std::find(c.begin(), c.end(), node)};
-
-  if (found_node != c.end() && *found_node <= node)
-    return;
-
-  push(node);
-}
 
 project2::ObstacleSpace::ObstacleSpace(
   const std::vector<unsigned int>& points,
