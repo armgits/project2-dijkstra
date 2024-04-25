@@ -92,7 +92,7 @@ bool project2::searchDijkstra(
     current_node_pos.x = current_node.getPosition().x;
     current_node_pos.y = current_node.getPosition().y;
 
-    position_buffer.push_back(current_node_pos);
+    explored_nodes.push_back(current_node_pos);
 
     if (current_node == goal_node) {
       goal_node_found = true;
