@@ -107,9 +107,6 @@ bool project2::searchDijkstra(
       if (!current_node.actionMove(action, child_node))
         continue;
 
-      if (std::find(closed_list.begin(), closed_list.end(), child_node) != closed_list.end())
-        continue;
-
       bool in_obstacle_space {project2::inObstacleSpace(child_node.getPosition(), obstacles)};
 
       if (in_obstacle_space)
