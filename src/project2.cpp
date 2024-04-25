@@ -29,16 +29,18 @@ project2::ObstacleSpace::ObstacleSpace(
 
 bool project2::ObstacleSpace::containsPoint(const Position& position)
 {
-  for (auto i {coeffients_.begin()}; i < coeffients_.end() - 3; i += 4) {
-    float a {*i};
-    float b {*(i + 1)};
-    float c {*(i + 2)};
-    float dir {*(i + 3)};
+  float dist {};
+  for (const auto& line: lines_) {
+    if (position.x < 0 + clearance_ || position.x > view_size_.x - clearance_
+      || position.y < 0 + clearance_ || position.y > view_size_.y - clearance_) {
 
-    float dist = dir * (a * position.x + b * position.y + c) / std::sqrt(std::pow(a, 2) + std::pow(b, 2));
+      return true;
+    }
 
-    if (dist >= clearance_)
+    dist = -1.F * ((line.x_diff * (position.y - line.y1)) - ((position.x - line.x1) * line.y_diff)) * line.distance_inv;
+    if (dist >= clearance_) {
       return false;
+    }
   }
 
   return true;
@@ -47,38 +49,19 @@ bool project2::ObstacleSpace::containsPoint(const Position& position)
 void project2::ObstacleSpace::getCoefficients(const std::vector<unsigned int>& points)
 {
   auto points_ {points};
+
   points_.push_back(*points.begin());
   points_.push_back(*(points.begin() + 1));
 
   for (auto i {points_.begin()}; i < points_.end() - 2; i += 2) {
-    unsigned int x1 {*i};
-    unsigned int y1 {*(i + 1)};
-    unsigned int x2 {*(i + 2)};
-    unsigned int y2 {*(i + 3)};
+    auto x1 {static_cast<float>(*i)};
+    auto y1 {static_cast<float>(*(i + 1))};
+    auto x2 {static_cast<float>(*(i + 2))};
+    auto y2 {static_cast<float>(*(i + 3))};
 
-    float a {0.F};
-    float b {-1.F};
-    float c {0.F};
-    float dir {1.F};
-
-    if (x2 - x1 != 0) {
-      a = (y2 - y1) / (x2 - x1);
-    }
-    else {
-      a = 1.F;
-      b = 0.F;
-    }
-
-    c = -1.F * (a * x1 + b * y1);
-
-    if ((x1 == view_size_.x && x2 == view_size_.x) || (y1 == view_size_.y && y2 == view_size_.y) || (x1 > x2) || (y1 > y2))
-      dir = -1.F;
-
-    coeffients_.push_back(a);
-    coeffients_.push_back(b);
-    coeffients_.push_back(c);
-    coeffients_.push_back(dir);
+    lines_.push_back({x1, y1, x2, y2});
   }
+
 }
 
 bool project2::searchDijkstra(
