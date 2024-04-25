@@ -80,7 +80,7 @@ bool project2::searchDijkstra(
   open_list.push(start_node);
   bool goal_node_found {false};
 
-  std::cout << std::endl << "Searching..." << std::endl;
+  std::cout << '\n' << "Searching..." << '\n';
   auto t_begin {std::chrono::high_resolution_clock::now()};
 
   while (!open_list.empty() && continue_search) {
